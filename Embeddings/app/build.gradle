@@ -1,7 +1,9 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
+group = "com.hiacc.embeddings"
 android {
     compileSdk 32
 
@@ -30,4 +32,18 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.4.2'
 
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = project.group
+                artifactId = 'emblib'
+                version = project.version
+            }
+        }
+    }
 }
